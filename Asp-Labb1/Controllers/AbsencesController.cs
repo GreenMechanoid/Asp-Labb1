@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Asp_Labb1.Data;
 using Asp_Labb1.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Asp_Labb1.Controllers
 {
@@ -20,17 +21,27 @@ namespace Asp_Labb1.Controllers
         }
 
         // GET: Absences by name
-        public async Task<IActionResult> Index(string searchString)
+        public async Task<IActionResult> Index(string queryString)
         {
             var applicationDbContext = _context.Absence.Include(a => a.Employees);
 
-            if (!string.IsNullOrEmpty(searchString))
+            if (!string.IsNullOrEmpty(queryString))
             {
-                return View("Index", await applicationDbContext.Where(emp => emp.Employees.FirstName.Contains(searchString)).ToListAsync());
+                return View("Index", await applicationDbContext.Where(emp => emp.Employees.FirstName.Contains(queryString)).ToListAsync());
             }
             return View(await applicationDbContext.ToListAsync());
         }
 
+        // GET: Absences search by start of abscence request month
+        [Authorize(Roles ="Administrator")]
+        public async Task<IActionResult> SearchByMonth(DateTime? ByMonth)
+        {
+            var absenceList = from abs in _context.Absence
+                              where (!ByMonth.HasValue || (abs.StartOfAbsence.Year == ByMonth.Value.Year && abs.StartOfAbsence.Month == ByMonth.Value.Month))
+                              select abs;
+
+            return View(await absenceList.Include(emp => emp.Employees).Include(ab => ab.Absencetypes).ToListAsync());
+        }
 
         // GET: Absences/Details/5
         public async Task<IActionResult> Details(int? id)

@@ -24,6 +24,7 @@ namespace Asp_Labb1.Models
         
         public DateTime EndOfAbsence { get; set; }
 
+
         
 
 

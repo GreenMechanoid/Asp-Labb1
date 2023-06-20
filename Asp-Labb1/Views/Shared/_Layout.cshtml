@@ -1,4 +1,8 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity
+@using Asp_Labb1.Models
+@inject SignInManager<IdentityUser> signInManager
+@inject UserManager<IdentityUser> userManager
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -23,17 +27,25 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Employees" asp-action="Index">Employees</a>
-                        </li>
-                        <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Absences" asp-action="Index">Absence</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="AbsenceTypes" asp-action="Index">AbsenceTypes</a>
-                        </li>
+                        @if (signInManager.IsSignedIn(User))
+                        {
+                            var currentUser = await userManager.GetUserAsync(User);
+
+                            var isAdmin = currentUser != null && await userManager.IsInRoleAsync(currentUser, "Administrator");
+
+                            if (isAdmin)
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Employees" asp-action="Index">Manage Employees</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="AbsenceTypes" asp-action="Index">Manage AbsenceTypes</a>
+                                </li>
+                            }
+                        }
+
                     </ul>
                     <partial name="_LoginPartial" />
                 </div>

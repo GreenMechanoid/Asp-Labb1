@@ -1,0 +1,75 @@
+﻿@model IEnumerable<Asp_Labb1.Models.Absence>
+@{
+    ViewData["Title"] = "SearchMonth";
+}
+
+<h1>Search month</h1>
+<hr />
+<form asp-action="SearchByMonth">
+    <div class="form-group">
+        <label for="ByMonth" class="control-label">Search month:</label>
+        <input type="month" name="ByMonth" placeholder="YYYY-MM" />
+        <input type="submit" value="Search" class="btn btn-primary" />
+    <a href="@Url.Action("SearchByMonth")">Clear search</a>
+    </div>
+    <div>
+        <a href="@Url.Action("Index")">Return to previous page</a>
+    </div>
+</form>
+<hr />
+<p>
+    <a asp-controller="Home" asp-action="Index">Log out</a>
+</p>
+@if (Model.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Employees)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Absencetypes)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.StartOfAbsence)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.EndOfAbsence)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TimeCreated)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Employees.Fullname)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Absencetypes.TypeOfAbsence)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.StartOfAbsence)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EndOfAbsence)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TimeCreated)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No results found.</p>
+}
+
+
