@@ -1,0 +1,42 @@
+﻿@model Asp_Labb1.Models.Absence
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Absence</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.FK_AbsenceTypeID)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Absencetypes.TypeOfAbsence)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Employees)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Employees.Fullname)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.StartOfAbsence)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.StartOfAbsence)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.EndOfAbsence)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.EndOfAbsence)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.AbsenceID">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

@@ -1,0 +1,63 @@
+﻿@model IEnumerable<Asp_Labb1.Models.Absence>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New Absence Request</a>
+</p>
+
+<form asp-action="Index">
+    <div class="form-group">
+        <label for="SearchString" class="control-label">Search Absence requests:</label>
+        <input type="text" name="SearchString" placeholder="First name" />
+        <input type="submit" value="Search" class="btn btn-dark" />
+    </div>
+    <a href="@Url.Action("Index")">Go back to Full List</a>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Absencetypes)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Employees)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StartOfAbsence)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EndOfAbsence)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody> 
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Absencetypes.TypeOfAbsence)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Employees.Fullname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StartOfAbsence)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EndOfAbsence)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.AbsenceID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.AbsenceID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.AbsenceID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
