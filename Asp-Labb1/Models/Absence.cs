@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using System.Drawing;
+using System.ComponentModel;
 
 namespace Asp_Labb1.Models
 {
@@ -24,6 +25,9 @@ namespace Asp_Labb1.Models
         
         public DateTime EndOfAbsence { get; set; }
 
+        [NotMapped]
+        [DisplayName("Number Of Days Abscent")]
+        public int daysAbscent => (EndOfAbsence - StartOfAbsence).Days;
 
         
 
