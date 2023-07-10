@@ -33,11 +33,11 @@ namespace Asp_Labb1.Controllers
         }
 
         // GET: Absences search by start of abscence request month
-        [Authorize(Roles ="Administrator")]
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> SearchByMonth(DateTime? ByMonth)
         {
             var absenceList = from abs in _context.Absence
-                              where (!ByMonth.HasValue || (abs.StartOfAbsence.Year == ByMonth.Value.Year && abs.StartOfAbsence.Month == ByMonth.Value.Month))
+                              where (!ByMonth.HasValue || (abs.EndOfAbsence.Year == ByMonth.Value.Year && abs.EndOfAbsence.Month == ByMonth.Value.Month))
                               select abs;
 
             return View(await absenceList.Include(emp => emp.Employees).Include(ab => ab.Absencetypes).ToListAsync());

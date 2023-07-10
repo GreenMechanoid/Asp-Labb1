@@ -7,7 +7,7 @@
 <hr />
 <form asp-action="SearchByMonth">
     <div class="form-group">
-        <label for="ByMonth" class="control-label">Search month:</label>
+        <label for="ByMonth" class="control-label">Search Absence by end Month:</label>
         <input type="month" name="ByMonth" placeholder="YYYY-MM" />
         <input type="submit" value="Search" class="btn btn-primary" />
     <a href="@Url.Action("SearchByMonth")">Clear search</a>
@@ -17,9 +17,6 @@
     </div>
 </form>
 <hr />
-<p>
-    <a asp-controller="Home" asp-action="Index">Log out</a>
-</p>
 @if (Model.Any())
 {
     <table class="table">
